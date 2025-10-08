@@ -1,0 +1,313 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!-- 🎨 Palette par défaut neutre claire -->
+    <Color x:Key="App.CouleurPrimaire.Color">#FF3F51B5</Color>
+    <Color x:Key="App.CouleurSecondaire.Color">#FFE0E0E0</Color>
+    <Color x:Key="App.CouleurFond.Color">#FFF8F8F8</Color>
+    <Color x:Key="App.CouleurTexte.Color">#FF212121</Color>
+    <Color x:Key="App.CouleurTexteInversé.Color">#FFFFFFFF</Color>
+
+    <SolidColorBrush x:Key="App.CouleurPrimaire" Color="{StaticResource App.CouleurPrimaire.Color}" />
+    <SolidColorBrush x:Key="App.CouleurSecondaire" Color="{StaticResource App.CouleurSecondaire.Color}" />
+    <SolidColorBrush x:Key="App.CouleurFond" Color="{StaticResource App.CouleurFond.Color}" />
+    <SolidColorBrush x:Key="App.CouleurTexte" Color="{StaticResource App.CouleurTexte.Color}" />
+    <SolidColorBrush x:Key="App.CouleurTexteInversé" Color="{StaticResource App.CouleurTexteInversé.Color}" />
+
+    <!-- ✅ Couleur spécifique pour la barre de titre (Windows 11 Mica fix) -->
+    <SolidColorBrush x:Key="App.BarreTitreFond" Color="#FFF8F8F8"/>
+    <SolidColorBrush x:Key="App.BarreTitreTexte" Color="#222222"/>
+
+    <!-- TabItem -->
+    <Style x:Key="App.TabItem" TargetType="TabItem"
+           BasedOn="{StaticResource MaterialDesignTabItem}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        <Setter Property="Padding" Value="12,6"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid 
+                        materialDesign:ColorZoneAssist.Mode="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=(materialDesign:ColorZoneAssist.Mode)}"
+                        materialDesign:ColorZoneAssist.Foreground="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=(materialDesign:ColorZoneAssist.Foreground)}"
+                        materialDesign:TabAssist.HasFilledTab="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=(materialDesign:TabAssist.HasFilledTab)}"
+                        materialDesign:DialogHost.RestoreFocusElement="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=(materialDesign:DialogHost.RestoreFocusElement)}">
+
+                        <Border 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter 
+                                ContentSource="Header"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!-- Tab actif -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource App.CouleurPrimaire}"/>
+                <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexteInversé}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurPrimaire}"/>
+                <Setter Property="BorderThickness" Value="0,0,2,0"/>
+            </Trigger>
+
+            <!-- Tab désactivé -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource App.CouleurSecondaire}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Bouton primaire -->
+    <Style x:Key="App.BoutonPrimaire" TargetType="Button"
+           BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource App.CouleurPrimaire}"/>
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexteInversé}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="12,6"/>
+    </Style>
+
+    <!-- Bouton secondaire -->
+    <Style x:Key="App.BoutonSecondaire" TargetType="Button"
+           BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurPrimaire}"/>
+        <Setter Property="Padding" Value="10,4"/>
+    </Style>
+
+    <!-- TextBlock titre -->
+    <Style x:Key="App.Titre" TargetType="TextBlock"
+           BasedOn="{StaticResource MaterialDesignHeadline6TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurPrimaire}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!-- Carte -->
+    <Style x:Key="App.Carte" TargetType="materialDesign:Card"
+           BasedOn="{StaticResource MaterialDesignOutlinedCard}">
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="Margin" Value="8"/>
+        <Setter Property="Padding" Value="12"/>
+    </Style>
+
+    <!-- DataGrid -->
+    <Style x:Key="App.DataGrid" TargetType="DataGrid"
+           BasedOn="{StaticResource MaterialDesignDataGrid}">
+        <Setter Property="RowBackground" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridColumnHeader"
+                       BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                    <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource App.CouleurPrimaire}"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TabControl -->
+    <Style x:Key="App.TabControl" TargetType="TabControl"
+       BasedOn="{StaticResource MaterialDesignTabControl}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <DockPanel>
+                        <!-- Onglets en haut -->
+                        <TabPanel DockPanel.Dock="Top"
+                              IsItemsHost="True"
+                              Background="{TemplateBinding Background}"
+                              Margin="0,0,0,4"/>
+
+                        <!-- Contenu -->
+                        <ContentPresenter 
+                        ContentSource="SelectedContent"
+                        Margin="{TemplateBinding Padding}"
+                        RecognizesAccessKey="True"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Style des TabItem internes -->
+        <Setter Property="ItemContainerStyle" Value="{StaticResource App.TabItem}"/>
+    </Style>
+
+    <!-- ProgressBar -->
+    <Style x:Key="App.ProgressBar" TargetType="ProgressBar"
+           BasedOn="{StaticResource {x:Type ProgressBar}}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurPrimaire}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Height" Value="8"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+    </Style>
+
+    <!-- TextBox -->
+    <Style x:Key="App.TextBox" TargetType="TextBox"
+           BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+        <Setter Property="Padding" Value="6,4"/>
+    </Style>
+
+    <!-- ComboBox -->
+    <Style x:Key="App.ComboBox" TargetType="ComboBox"
+           BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+
+    <!-- CheckBox -->
+    <Style x:Key="App.CheckBox" TargetType="CheckBox"
+       BasedOn="{StaticResource MaterialDesignCheckBox}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+
+    <!-- ListBox -->
+    <Style x:Key="App.ListBox" TargetType="ListBox"
+           BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="Padding" Value="4"/>
+    </Style>
+
+    <!-- ListBoxItem -->
+    <Style x:Key="App.ListBoxItem" TargetType="ListBoxItem"
+           BasedOn="{StaticResource {x:Type ListBoxItem}}">
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource App.CouleurSecondaire}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource App.CouleurPrimaire}"/>
+                <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexteInversé}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource App.CouleurSecondaire}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- RadioButton -->
+    <Style x:Key="App.RadioButton" TargetType="RadioButton"
+           BasedOn="{StaticResource MaterialDesignRadioButton}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+        <Setter Property="Padding" Value="4,2"/>
+    </Style>
+    
+    <!-- 🎨 Style Fluent/Win11 pour onglets Dragablz -->
+    <Style TargetType="dragablz:DragablzItem"
+           xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="dragablz:DragablzItem">
+                    <Border x:Name="TabBorder"
+                            CornerRadius="8"
+                            Background="#55FFFFFF"
+                            BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                            BorderThickness="0"
+                            Padding="10,6"
+                            Margin="2,0">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- Onglet sélectionné -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="{DynamicResource App.CouleurPrimaire}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexteInversé}"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="TabBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TabBorder" Property="Background" Value="#88FFFFFF"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 🎨 Style Fluent/Mica -->
+    <Style TargetType="Window" x:Key="App.FenetreFluent" BasedOn="{StaticResource {x:Type Window}}">
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="AllowsTransparency" Value="False"/>
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Border Background="{DynamicResource App.CouleurFond}"
+                            BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                            BorderThickness="1"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <AdornerDecorator>
+                                <ContentPresenter/>
+                            </AdornerDecorator>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- DatePicker -->
+    <Style x:Key="App.DatePicker" TargetType="DatePicker"
+       BasedOn="{StaticResource {x:Type DatePicker}}">
+        <Setter Property="Foreground" Value="{DynamicResource App.CouleurTexte}"/>
+        <Setter Property="Background" Value="{DynamicResource App.CouleurFond}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource App.CouleurSecondaire}"/>
+        <Setter Property="Margin" Value="0,0,8,0"/>
+    </Style>
+
+
+</ResourceDictionary>

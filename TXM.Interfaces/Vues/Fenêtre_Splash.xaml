@@ -1,0 +1,118 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Splash)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Fenêtre_Splash.xaml
+*  Description             : Écran de démarrage animé, intégré au système de thème TXM v3
+* * * * *
+-->
+<Window x:Class="TXM.Interfaces.Vues.Fenêtre_Splash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Opacity="0"
+        Background="{DynamicResource App.CouleurFond}"
+        Foreground="{DynamicResource App.CouleurTexte}"
+        Style="{StaticResource App.FenetreFluent}">
+
+    <!-- Storyboards -->
+    <Window.Resources>
+        <!-- Fade-in + pop -->
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.25"/>
+            <DoubleAnimation Storyboard.TargetName="Root"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             From="0.98" To="1.0" Duration="0:0:0.25">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Root"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             From="0.98" To="1.0" Duration="0:0:0.25">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- Fade-out + léger shrink -->
+        <Storyboard x:Key="FadeOutStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="0" Duration="0:0:0.22"/>
+            <DoubleAnimation Storyboard.TargetName="Root"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             To="0.98" Duration="0:0:0.22">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Root"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             To="0.98" Duration="0:0:0.22">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+
+    <!-- Lancer le fade-in quand la fenêtre est chargée -->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <!-- Conteneur principal -->
+    <Border x:Name="Root"
+            CornerRadius="12"
+            Padding="32"
+            Background="{DynamicResource App.CouleurFond}"
+            BorderBrush="{DynamicResource App.CouleurSecondaire}"
+            BorderThickness="1"
+            SnapsToDevicePixels="True"
+            md:ElevationAssist.Elevation="Dp3">
+        <Border.RenderTransform>
+            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+        </Border.RenderTransform>
+
+        <StackPanel Width="480" HorizontalAlignment="Center">
+
+            <!-- Titre -->
+            <!--       <TextBlock Text="Concours de pétanque"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource App.CouleurTexte}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,12"/> -->
+
+            <!-- Logo dynamique -->
+            <Image Source="{DynamicResource Branding.LogoUri}"
+                   Width="180" Height="180"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,15"/>
+
+            <!-- Barre de progression -->
+            <ProgressBar x:Name="Barre"
+                         Height="8"
+                         Minimum="0"
+                         Maximum="100"
+                         Style="{StaticResource App.ProgressBar}"
+                         Margin="0,12,0,0"
+                         AutomationProperties.Name="Progression du chargement"/>
+        </StackPanel>
+    </Border>
+</Window>

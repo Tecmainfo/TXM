@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Licences\Crypto_Service.cs" />
+    <Compile Include="Feature_Flag_Attribute.cs" />
+    <Compile Include="Feature_Flag_Service.cs" />
+    <Compile Include="Flags_Maestro.cs" />
+    <Compile Include="Flags_TripleX.cs" />
+    <Compile Include="Grands_Tournois\Service_Export_FicheMatch.cs" />
+    <Compile Include="Grands_Tournois\Service_Site.cs" />
+    <Compile Include="Grands_Tournois\Service_Terrain.cs" />
+    <Compile Include="Grands_Tournois\Service_Tournoi.cs" />
+    <Compile Include="IFeature_Flags.cs" />
+    <Compile Include="Licences\Licence_Helper.cs" />
+    <Compile Include="Licences\Licence_Loader.cs" />
+    <Compile Include="Service_Feature.cs" />
+    <Compile Include="Service_Fluent.cs" />
+    <Compile Include="Service_Gestion_Paramètre.cs" />
+    <Compile Include="Licences\Service_Licence_UI.cs" />
+    <Compile Include="Service_Paramètres.cs" />
+    <Compile Include="Service_Compétitions.cs" />
+    <Compile Include="Dossier_Concours\Service_Concours.cs" />
+    <Compile Include="Dossier_Concours\Service_Concours_Officiels.cs" />
+    <Compile Include="Service_Context.cs" />
+    <Compile Include="Export\Service_Export_Csv.cs" />
+    <Compile Include="Export\Service_Export_Pdf.cs" />
+    <Compile Include="Service_GénérationPoules.cs" />
+    <Compile Include="Service_Homologation.cs" />
+    <Compile Include="Service_Incidents.cs" />
+    <Compile Include="Service_Inscriptions.cs" />
+    <Compile Include="Dossier_Concours\Service_Joueurs.cs" />
+    <Compile Include="Licences\Service_Licence.cs" />
+    <Compile Include="Service_Matches.cs" />
+    <Compile Include="Service_Paramètres_UI.cs" />
+    <Compile Include="Service_Passerelle.cs" />
+    <Compile Include="Service_Poules.cs" />
+    <Compile Include="Service_Rapports.cs" />
+    <Compile Include="Service_Restrictions.cs" />
+    <Compile Include="Service_Règlements.cs" />
+    <Compile Include="Service_Sanctions.cs" />
+    <Compile Include="Service_Settings.cs" />
+    <Compile Include="Thème\Service_Thème.cs" />
+    <Compile Include="Thème\Service_Thème_Système.cs" />
+    <Compile Include="Service_Tirage.cs" />
+    <Compile Include="Service_Utilisateurs.cs" />
+    <Compile Include="Service_Équipes.cs" />
+    <Compile Include="_Imports.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.234" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TXM.Modèles\TXM.Modèles.csproj" />
+    <ProjectReference Include="..\TXM.Données\TXM.Données.csproj" />
+  </ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<!-- évite les warnings sur les commentaires manquants -->
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+</Project>

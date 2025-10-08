@@ -1,0 +1,79 @@
+﻿<!-- 
+* * * * * * * * * * * * *
+*  Nom du logiciel         : TXM (Shell GUI)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.2.0.0
+*  Nom du fichier          : MainWindow.xaml
+*  Description             : Fenêtre principale avec effet Fluent/Mica adaptatif Windows 11
+* * * * * * * * * * * * *
+-->
+<Window x:Class="TXM.Interfaces.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gui="clr-namespace:TXM.Interfaces.Contrôles"
+        Title="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+        WindowStartupLocation="CenterScreen"
+        Width="1700" Height="1200"
+        MinWidth="1000" MinHeight="600"
+        
+        AllowsTransparency="False"
+        ResizeMode="CanResizeWithGrip"
+        Background="{DynamicResource App.CouleurFond}"
+        Foreground="{DynamicResource App.CouleurTexte}"
+        Loaded="OnWindowLoaded">
+
+    <Grid Background="{DynamicResource App.CouleurFond}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 🟦 BARRE SUPÉRIEURE -->
+        <DockPanel LastChildFill="False">
+            <!-- Bloc concours actif -->
+            <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,10,0">
+                <TextBlock Text="Concours actif :"
+                               VerticalAlignment="Center"
+                               Margin="0,0,8,0"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource App.BarreTitreTexte}"/>
+                <ComboBox x:Name="ComboConcoursActifs"
+                              Width="240"
+                              Style="{StaticResource App.ComboBox}"
+                              DisplayMemberPath="Nom"
+                              SelectedValuePath="Id"
+                              SelectionChanged="OnConcoursActifChanged"/>
+            </StackPanel>
+
+        </DockPanel>
+
+        <!-- CONTENU PRINCIPAL -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Barre latérale -->
+            <Border Grid.Column="0"
+                    Background="{DynamicResource App.CouleurSecondaire}"
+                    BorderBrush="{DynamicResource App.CouleurPrimaire}"
+                    BorderThickness="0,0,1,0">
+                <gui:Contrôle_ShellNav x:Name="ShellNav"
+                                       NavigationDemandée="OnNavigationDemandée"/>
+            </Border>
+
+            <!-- Cadre principal -->
+            <Frame x:Name="CadrePrincipal"
+                   Grid.Column="1"
+                   Background="{DynamicResource App.CouleurFond}"
+                   NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Grid>
+</Window>

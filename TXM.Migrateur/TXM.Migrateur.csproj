@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Include="Program.cs" />
+	  <Compile Include="_Imports.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Dragablz" Version="0.0.3.234" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TXM.Données\TXM.Données.csproj" />
+	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<!-- évite les warnings sur les commentaires manquants -->
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+</Project>

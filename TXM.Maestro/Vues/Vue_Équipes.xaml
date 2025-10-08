@@ -1,0 +1,127 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Équipes.xaml
+*  Description             : Gestion des équipes – intégrée au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Équipes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="400" MinWidth="600"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Gestion des Équipes"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- formulaire ajout -->
+        <DockPanel Margin="0,8,0,16" LastChildFill="False">
+            <TextBox x:Name="SaisieNomÉquipe"
+                     Width="240"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Nom de l’équipe"/>
+            <Button Content="Ajouter"
+                    Width="140"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnAjouterÉquipe"/>
+        </DockPanel>
+
+        <!-- liste des équipes -->
+        <DataGrid ItemsSource="{Binding Équipes}"
+                  SelectedItem="{Binding ÉquipeSélectionnée, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="False"
+                  CellEditEnding="OnCellEditEnding"
+                  Style="{StaticResource App.DataGrid}"
+                  Margin="0,0,0,8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Id}"
+                                    IsReadOnly="True"
+                                    Width="60"/>
+                <DataGridTextColumn Header="Nom"
+                                    Binding="{Binding Nom}"
+                                    Width="*"/>
+                <DataGridTemplateColumn Header="Actions"
+                                        Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Supprimer"
+                                    Click="OnSupprimerClick"
+                                    Tag="{Binding}"
+                                    Style="{StaticResource App.BoutonSecondaire}"
+                                    Foreground="{DynamicResource App.CouleurTexteInversé}"
+                                    Background="{DynamicResource App.CouleurPrimaire}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Separator Margin="0,8"/>
+
+        <!-- composition -->
+        <TextBlock Text="Composition de l’équipe sélectionnée"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource App.CouleurTexte}"
+                   Margin="0,8"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0,4">
+            <ComboBox x:Name="ComboJoueursDispo"
+                      Width="220"
+                      Style="{StaticResource App.ComboBox}"
+                      DisplayMemberPath="Nom"
+                      SelectedValuePath="Id"/>
+            <Button Content="Ajouter joueur"
+                    Width="160"
+                    Margin="8,0,0,0"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnAjouterJoueurEquipe"/>
+        </StackPanel>
+
+        <!-- joueurs de l’équipe -->
+        <DataGrid ItemsSource="{Binding JoueursDeÉquipe}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Height="180"
+                  Margin="0,4,0,0"
+                  Style="{StaticResource App.DataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom"
+                                    Binding="{Binding Nom}"
+                                    Width="200"/>
+                <DataGridTextColumn Header="Licence"
+                                    Binding="{Binding Licence}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="Club"
+                                    Binding="{Binding Club}"
+                                    Width="160"/>
+                <DataGridTemplateColumn Header="Action" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Retirer"
+                                    Click="OnRetirerJoueurEquipe"
+                                    Tag="{Binding}"
+                                    Style="{StaticResource App.BoutonSecondaire}"
+                                    Foreground="{DynamicResource App.CouleurTexteInversé}"
+                                    Background="{DynamicResource App.CouleurPrimaire}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

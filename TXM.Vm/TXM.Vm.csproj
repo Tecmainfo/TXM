@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Base\BaseVM.cs" />
+    <Compile Include="Base\RelayCommand.cs" />
+    <Compile Include="Commun\VM_Licence.cs" />
+    <Compile Include="Commun\VM_Tableau_de_bord.cs" />
+    <Compile Include="Commun\VM_Paramètres.cs" />
+    <Compile Include="Grands_Tournois\VM_FicheMatch.cs" />
+    <Compile Include="Grands_Tournois\VM_Sites.cs" />
+    <Compile Include="Grands_Tournois\VM_Terrains.cs" />
+    <Compile Include="Grands_Tournois\VM_Tournoi.cs" />
+    <Compile Include="Maestro\VM_Arbitrage.cs" />
+    <Compile Include="Maestro\VM_Compétitions.cs" />
+    <Compile Include="Maestro\VM_Documents_Officiels.cs" />
+    <Compile Include="Maestro\VM_Homologation.cs" />
+    <Compile Include="Maestro\VM_Inscriptions.cs" />
+    <Compile Include="Maestro\VM_Joueurs.cs" />
+    <Compile Include="Maestro\VM_Matches.cs" />
+    <Compile Include="Maestro\VM_Poules.cs" />
+    <Compile Include="Maestro\VM_Règlements.cs" />
+    <Compile Include="Maestro\VM_Tableaux.cs" />
+    <Compile Include="Maestro\VM_Équipes.cs" />
+    <Compile Include="TripleX\VM_Concours_Amical.cs" />
+    <Compile Include="TripleX\VM_Concours_Officiel.cs" />
+    <Compile Include="TripleX\VM_Joueurs.cs" />
+    <Compile Include="_Imports.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.234" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TXM.Modèles\TXM.Modèles.csproj" />
+    <ProjectReference Include="..\TXM.Infrastructure\TXM.Infrastructure.csproj" />
+    <ProjectReference Include="..\TXM.Services\TXM.Services.csproj" />
+  </ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<!-- évite les warnings sur les commentaires manquants -->
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+</Project>

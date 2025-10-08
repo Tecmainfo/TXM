@@ -1,0 +1,71 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Vue Licence)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Version                 : 25.10.2.0.0
+*  Description             : Vue licence avec interface harmonisée à la fenêtre d’activation
+* * * * *
+-->
+<UserControl x:Class="TXM.Interfaces.Vues.Vue_Licence"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="300" MinWidth="500"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <Grid Margin="20">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+            <!-- Titre -->
+            <TextBlock Text="Gestion de la licence"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource App.CouleurPrimaire}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+            <!-- Infos licence -->
+            <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                <TextBlock Text="{Binding État, Mode=OneWay}" FontWeight="SemiBold" FontSize="14" />
+                <TextBlock Text=" " Height="2"/>
+                <TextBlock Text="Type : " FontWeight="SemiBold" Foreground="{DynamicResource App.CouleurTexte}">
+                    <Run Text="{Binding Type, Mode=OneWay}" FontWeight="Normal"/>
+                </TextBlock>
+                <TextBlock Text="Date activation : " FontWeight="SemiBold" Foreground="{DynamicResource App.CouleurTexte}">
+                    <Run Text="{Binding DateActivation, Mode=OneWay}" FontWeight="Normal"/>
+                </TextBlock>
+                <TextBlock Text="Expiration : " FontWeight="SemiBold" Foreground="{DynamicResource App.CouleurTexte}">
+                    <Run Text="{Binding DateExpiration, Mode=OneWay}" FontWeight="Normal"/>
+                </TextBlock>
+            </StackPanel>
+
+            <!-- Zone d’activation visible uniquement en mode Démo -->
+            <StackPanel Orientation="Vertical"
+                        Visibility="{Binding EstSaisieVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                <TextBox Width="320"
+                         Margin="0,0,0,12"
+                         Style="{StaticResource App.TextBox}"
+                         md:HintAssist.Hint="Entrez la clé de licence (TXM-XXXXX-XXXXX-XXXXX)"
+                         FontSize="14"
+                         Text="{Binding CléSaisie, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Content="Activer"
+                        Width="160"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Command="{Binding CmdActiver}"/>
+
+                <!-- Message résultat -->
+                <TextBlock Text="{Binding MessageRésultat}"
+                           FontWeight="SemiBold"
+                           FontSize="13"
+                           Foreground="{Binding CouleurRésultat}"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

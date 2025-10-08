@@ -1,0 +1,148 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Poules.xaml
+*  Description             : Gestion des poules – intégrée au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Poules"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="500" MinWidth="700"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Gestion des Poules"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- formulaire ajout -->
+        <DockPanel Margin="0,8,0,12" LastChildFill="False">
+            <TextBox x:Name="SaisieNomPoule"
+                     Width="140"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Nom de la poule"/>
+            <DatePicker x:Name="SaisieDate"
+                        Width="180"
+                        Margin="0,0,8,0"
+                        Foreground="{DynamicResource App.CouleurTexte}"
+                        Background="{DynamicResource App.CouleurFond}"/>
+            <TextBox x:Name="SaisieHeure"
+                     Width="100"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Heure"/>
+            <Button Content="Ajouter Poule"
+                    Width="160"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnAjouterPoule"/>
+        </DockPanel>
+
+        <!-- affectation équipes -->
+        <GroupBox Header="Affectation d’équipes"
+                  Margin="0,12,0,0"
+                  Foreground="{DynamicResource App.CouleurTexte}"
+                  Background="{DynamicResource App.CouleurFond}"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}">
+            <StackPanel Orientation="Horizontal" Margin="8">
+                <ComboBox x:Name="ComboInscriptions"
+                          Width="220"
+                          Style="{StaticResource App.ComboBox}"
+                          DisplayMemberPath="NomÉquipe"
+                          SelectedValuePath="Id"/>
+                <Button Content="Ajouter à la poule"
+                        Width="160"
+                        Margin="8,0,0,0"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Click="OnAjouterÉquipeÀPoule"/>
+                <Button Content="Répartition aléatoire"
+                        Width="200"
+                        Margin="8,0,0,0"
+                        Style="{StaticResource App.BoutonSecondaire}"
+                        Click="OnRepartirAleatoirement"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- affectation joueurs -->
+        <GroupBox Header="Affectation des joueurs"
+                  Margin="0,12,0,0"
+                  Foreground="{DynamicResource App.CouleurTexte}"
+                  Background="{DynamicResource App.CouleurFond}"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}">
+            <StackPanel Orientation="Horizontal" Margin="8">
+                <Button Content="Répartir tous les joueurs aléatoirement"
+                        Width="280"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Click="OnRepartirJoueursAleatoirement"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- joueurs de la poule -->
+        <GroupBox Header="Joueurs de la poule sélectionnée"
+                  Margin="0,12,0,0"
+                  Foreground="{DynamicResource App.CouleurTexte}"
+                  Background="{DynamicResource App.CouleurFond}"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}">
+            <DataGrid ItemsSource="{Binding JoueursDansPoule}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Height="160"
+                      Style="{StaticResource App.DataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="200"/>
+                    <DataGridTextColumn Header="Licence" Binding="{Binding Licence}" Width="120"/>
+                    <DataGridTextColumn Header="Club" Binding="{Binding Club}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- liste poules -->
+        <DataGrid ItemsSource="{Binding Poules}"
+                  SelectedItem="{Binding PouleSélectionnée, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  Height="160"
+                  Margin="0,12,0,0"
+                  Style="{StaticResource App.DataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="120"/>
+                <DataGridTextColumn Header="Heure Début" Binding="{Binding HeureDébut}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- bouton génération matches -->
+        <Button Content="Générer les matches"
+                Width="200"
+                Margin="0,12,0,12"
+                Style="{StaticResource App.BoutonPrimaire}"
+                Click="OnGenererMatches"/>
+
+        <!-- équipes de la poule -->
+        <GroupBox Header="Équipes de la poule sélectionnée"
+                  Margin="0,8,0,0"
+                  Foreground="{DynamicResource App.CouleurTexte}"
+                  Background="{DynamicResource App.CouleurFond}"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}">
+            <DataGrid ItemsSource="{Binding ÉquipesDansPoule}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Height="160"
+                      Style="{StaticResource App.DataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Équipe" Binding="{Binding NomÉquipe}" Width="200"/>
+                    <DataGridTextColumn Header="Joueurs" Binding="{Binding Joueurs}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

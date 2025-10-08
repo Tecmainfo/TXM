@@ -1,0 +1,100 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Vue Tableau de bord)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Version                 : 25.10.1.0.0
+*  Description             : Tableau de bord — intégré au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Interfaces.Vues.Vue_Tableau_de_bord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="300" MinWidth="500"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titre -->
+        <TextBlock Text="Tableau de bord"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="0,8,0,0">
+
+            <!-- Statistiques rapides -->
+            <UniformGrid Rows="1" Columns="4" Margin="0,0,0,12">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding NbConcours}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource App.CouleurPrimaire}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Concours en cours"
+                               Foreground="{DynamicResource App.CouleurTexte}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding NbJoueurs}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource App.CouleurPrimaire}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Joueurs inscrits"
+                               Foreground="{DynamicResource App.CouleurTexte}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding NbIncidents}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource App.CouleurPrimaire}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Incidents"
+                               Foreground="{DynamicResource App.CouleurTexte}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding NbSanctions}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource App.CouleurPrimaire}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Sanctions"
+                               Foreground="{DynamicResource App.CouleurTexte}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
+
+            <!-- Matches du jour -->
+            <GroupBox Header="Matches du jour"
+                      Margin="0,4,0,0"
+                      Foreground="{DynamicResource App.CouleurTexte}"
+                      BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                      Background="{DynamicResource App.CouleurFond}">
+                <DataGrid ItemsSource="{Binding MatchesDuJour}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Style="{StaticResource App.DataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tour" Binding="{Binding Tour}" Width="60"/>
+                        <DataGridTextColumn Header="Équipe A" Binding="{Binding EquipeA}" Width="200"/>
+                        <DataGridTextColumn Header="Équipe B" Binding="{Binding EquipeB}" Width="200"/>
+                        <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

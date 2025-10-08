@@ -1,0 +1,98 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Inscriptions.xaml
+*  Description             : Gestion des inscriptions – intégrée au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Inscriptions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="400" MinWidth="600"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Inscriptions"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- formulaire d’inscription -->
+        <DockPanel Margin="0,0,0,16" LastChildFill="False">
+            <TextBox x:Name="SaisieNomÉquipe"
+                     Width="200"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Nom de l’équipe"/>
+            <TextBox x:Name="SaisieJoueurs"
+                     Width="280"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Liste des joueurs (séparés par virgule)"/>
+            <ComboBox x:Name="ComboConcours"
+                      Width="200"
+                      Margin="0,0,8,0"
+                      Style="{StaticResource App.ComboBox}"
+                      DisplayMemberPath="Nom"
+                      SelectedValuePath="Id"
+                      ItemsSource="{Binding ConcoursDisponibles}"/>
+            <Button Content="Ajouter équipe"
+                    Width="160"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnAjouterÉquipe"/>
+        </DockPanel>
+
+        <!-- liste des inscriptions -->
+        <DataGrid ItemsSource="{Binding Inscriptions}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="False"
+                  CellEditEnding="OnCellEditEnding"
+                  Style="{StaticResource App.DataGrid}"
+                  Margin="0,0,0,8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Id}"
+                                    Width="60"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Équipe"
+                                    Binding="{Binding NomÉquipe}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Joueurs"
+                                    Binding="{Binding Joueurs}"
+                                    Width="220"/>
+                <DataGridTextColumn Header="Concours"
+                                    Binding="{Binding NomConcours}"
+                                    Width="200"
+                                    IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="Action" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Retirer"
+                                    Click="OnSupprimerInscription"
+                                    Tag="{Binding}"
+                                    Style="{StaticResource App.BoutonSecondaire}"
+                                    Foreground="{DynamicResource App.CouleurTexteInversé}"
+                                    Background="{DynamicResource App.CouleurPrimaire}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- bouton de répartition -->
+        <Button Content="Répartir en poules"
+                Width="200"
+                Margin="0,8,0,0"
+                Style="{StaticResource App.BoutonPrimaire}"
+                Click="OnRepartirPoules"/>
+    </StackPanel>
+</UserControl>

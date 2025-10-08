@@ -1,0 +1,119 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Documents_Officiels.xaml
+*  Description             : Vue de génération et suivi des documents officiels – intégrée au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Documents_Officiels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="400" MinWidth="720"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- En-tête -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="Documents officiels"
+                       Style="{StaticResource App.Titre}"
+                       Margin="0,0,12,0"/>
+            <TextBlock Text="{Binding ProfilActuel}"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource App.CouleurTexte}"
+                       Opacity="0.7"/>
+        </StackPanel>
+
+        <!-- Corps principal -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Zone génération -->
+            <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                <ComboBox ItemsSource="{Binding ProfilsCompétition}"
+                          SelectedItem="{Binding ProfilActuel}"
+                          Style="{StaticResource App.ComboBox}"
+                          md:HintAssist.Hint="Profil (aligne les trames)"
+                          Margin="0,0,0,12"/>
+
+                <Button Content="Feuille de jury (PDF)"
+                        Command="{Binding CmdFeuilleJury}"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Margin="0,0,0,8"/>
+                <Button Content="Feuilles de match (PDF/Excel)"
+                        Command="{Binding CmdFeuillesMatch}"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Margin="0,0,0,8"/>
+                <Button Content="Bordereau de résultats (PDF)"
+                        Command="{Binding CmdBordereau}"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Margin="0,0,0,8"/>
+                <Button Content="Feuille d’indemnités (PDF/Excel)"
+                        Command="{Binding CmdIndemnités}"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Margin="0,0,0,8"/>
+                <Button Content="Rapport arbitral (PDF)"
+                        Command="{Binding CmdRapportArbitral}"
+                        Style="{StaticResource App.BoutonPrimaire}"/>
+            </StackPanel>
+
+            <!-- Historique / aperçu -->
+            <GroupBox Header="Historique des exports"
+                      Grid.Column="1"
+                      BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                      Background="{DynamicResource App.CouleurFond}"
+                      Foreground="{DynamicResource App.CouleurTexte}">
+                <ListView ItemsSource="{Binding Exports}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Header="Profil" DisplayMemberBinding="{Binding Profil}"/>
+                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding DateHeure}"/>
+                            <GridViewColumn Header="Fichier">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Fichier}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Foreground="{DynamicResource App.CouleurTexte}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+        </Grid>
+
+        <!-- Barre inférieure -->
+        <DockPanel Grid.Row="2" Margin="0,12,0,0">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Ouvrir dossier modèles"
+                        Command="{Binding CmdOuvrirDossierModèles}"
+                        Style="{StaticResource App.BoutonSecondaire}"
+                        Margin="0,0,8,0"/>
+                <Button Content="Ouvrir dossier exports"
+                        Command="{Binding CmdOuvrirDossierExports}"
+                        Style="{StaticResource App.BoutonSecondaire}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Statut}"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource App.CouleurTexte}"
+                       Opacity="0.8"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

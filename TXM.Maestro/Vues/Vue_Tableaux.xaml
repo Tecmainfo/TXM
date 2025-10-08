@@ -1,0 +1,83 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Tableaux.xaml
+*  Description             : Gestion et génération des tableaux de compétition (intégration au système de thème TXM v3)
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Tableaux"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="400" MinWidth="700"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Tableaux de compétition"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- actions -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+            <Button Content="Générer 1er tour"
+                    Width="180"
+                    Margin="0,0,8,0"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnTiragePremierTour"/>
+            <Button Content="Générer tour suivant"
+                    Width="200"
+                    Margin="0,0,8,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnTirageTourSuivant"
+                    Cursor="Hand"/>
+            <Button Content="Exporter tableau PDF"
+                    Width="200"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterTableau"/>
+        </StackPanel>
+
+        <!-- grille matches -->
+        <DataGrid ItemsSource="{Binding Matches}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  CanUserAddRows="False"
+                  Style="{StaticResource App.DataGrid}"
+                  Margin="0,0,0,8">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Id}"
+                                    Width="60"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Tour"
+                                    Binding="{Binding Tour}"
+                                    Width="80"/>
+                <DataGridTextColumn Header="Équipe A"
+                                    Binding="{Binding EquipeA}"
+                                    Width="200"/>
+                <DataGridTextColumn Header="Équipe B"
+                                    Binding="{Binding EquipeB}"
+                                    Width="200"/>
+                <DataGridTextColumn Header="Score A"
+                                    Binding="{Binding ScoreA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="80"/>
+                <DataGridTextColumn Header="Score B"
+                                    Binding="{Binding ScoreB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="80"/>
+                <DataGridTextColumn Header="Score"
+                                    Binding="{Binding Score}"
+                                    Width="100"
+                                    IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </StackPanel>
+</UserControl>

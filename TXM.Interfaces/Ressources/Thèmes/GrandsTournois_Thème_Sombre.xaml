@@ -1,0 +1,41 @@
+<!--
+* * * * * * * * * * * * *
+* Nom du logiciel        : Grands Tournois
+* Projet Principal       : Interfaces
+* Auteur                 : Kano
+* Version                : 2025.10.7.0.0
+* Type de version        : Alpha
+* Description            : Thème sombre – Fluent/Mica adaptatif Windows 11
+* * * * * * * * * * * * *
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/TXM.Interfaces;component/Ressources/Thèmes/App.Generic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- 🎨 Palette sombre Grands Tournois -->
+    <Color x:Key="GT.CouleurPrimaire">#0D47A1</Color>
+    <Color x:Key="GT.CouleurSecondaire">#1B1B1B</Color>
+    <Color x:Key="GT.CouleurFond">#121212</Color>
+    <Color x:Key="GT.CouleurTexte">#FAFAFA</Color>
+    <Color x:Key="GT.CouleurTexteInversé">#000000</Color>
+
+    <!-- Barre de titre -->
+    <SolidColorBrush x:Key="App.BarreTitreFond" Color="#1B1B1B"/>
+    <SolidColorBrush x:Key="App.BarreTitreTexte" Color="#FAFAFA"/>
+
+    <!-- Aliases App.* -->
+    <SolidColorBrush x:Key="App.CouleurPrimaire" Color="{StaticResource GT.CouleurPrimaire}"/>
+    <SolidColorBrush x:Key="App.CouleurSecondaire" Color="{StaticResource GT.CouleurSecondaire}"/>
+    <SolidColorBrush x:Key="App.CouleurFond" Color="{StaticResource GT.CouleurFond}"/>
+    <SolidColorBrush x:Key="App.CouleurTexte" Color="{StaticResource GT.CouleurTexte}"/>
+    <SolidColorBrush x:Key="App.CouleurTexteInversé" Color="{StaticResource GT.CouleurTexteInversé}"/>
+
+    <!-- 🔖 Branding -->
+    <sys:String x:Key="Branding.NomProduit">TXM – Grands Tournois</sys:String>
+    <sys:String x:Key="Branding.Slogan">Gestion multi-sites et grands événements</sys:String>
+    <BitmapImage x:Key="Branding.LogoUri" UriSource="/Ressources/logos/logo-grands-tournois.png"/>
+</ResourceDictionary>

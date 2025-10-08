@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="TXM.GrandsTournois.Vues.Vue_Sites"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+    <StackPanel Margin="16">
+
+        <TextBlock Text="Sites du tournoi"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <DataGrid ItemsSource="{Binding Sites}"
+                  SelectedItem="{Binding SiteSélectionné, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  Height="300"
+                  Style="{StaticResource App.DataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}" Width="200"/>
+                <DataGridTextColumn Header="Responsable" Binding="{Binding Responsable}" Width="200"/>
+                <DataGridTextColumn Header="Téléphone" Binding="{Binding Téléphone}" Width="120"/>
+                <DataGridTextColumn Header="Terrains" Binding="{Binding Nb_Terrains}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,50 @@
+<Project>
+  <!-- Configuration globale pour tous les projets TXM -->
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>1591;CS8601;IDE0060</NoWarn>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Optimize>true</Optimize>
+
+    <!-- Version & info -->
+    <Version>25.10.1</Version>
+    <Authors>Kano</Authors>
+    <Company>Tecmainfo</Company>
+    <Product>TXM - TripleX / Pétanque Maestro</Product>
+    <Copyright>© 2025 Tecmainfo</Copyright>
+    <FileVersion>25.10.1.0</FileVersion>
+    <AssemblyVersion>25.10.1.0</AssemblyVersion>
+
+    <!-- Documentation XML -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>$(MSBuildProjectDirectory)\bin\$(Configuration)\$(MSBuildProjectName).xml</DocumentationFile>
+
+    <!-- Chemins de build -->
+    <RootDir>$(MSBuildThisFileDirectory)..\</RootDir>
+    <OutputPath>$(RootDir)TXM $(Configuration)\</OutputPath>
+    <BaseIntermediateOutputPath>$(RootDir)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+
+    <!-- Langue et ressources -->
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <PreferredUILang>fr-FR</PreferredUILang>
+  </PropertyGroup>
+
+  <!-- Références NuGet globales -->
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.*" />
+    <PackageReference Include="MaterialDesignColors" Version="5.*" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.*" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.*" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.*" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.*" />
+    <PackageReference Include="PdfSharpCore" Version="1.*" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.*" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.*" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,122 @@
+<Project>
+
+  <!-- ============================================================
+       📘 COPIE DES FICHIERS XML DE DOCUMENTATION
+       ============================================================ -->
+  <Target Name="CopyDocumentationFiles" AfterTargets="Build">
+    <ItemGroup>
+      <DocFiles Include="$(TargetDir)*.xml" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(DocFiles)"
+      DestinationFolder="$(SolutionDir)Docs\$(Configuration)\"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+    <Message Text="📘 Documentation copiée → $(SolutionDir)Docs\$(Configuration)\" Importance="Low" />
+  </Target>
+
+  <!-- ============================================================
+       🧱 BUILD DEBUG : organisation du dossier TXM Debug
+       ============================================================ -->
+  <Target Name="OrganizeOutput_Debug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Message Text="🔧 Organisation du build TXM (Debug)..." Importance="High" />
+
+    <PropertyGroup>
+      <DebugOutput>E:\TXM Output\TXM Debug\</DebugOutput>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(DebugOutput)" />
+
+    <!-- Assemblies et exécutables -->
+    <ItemGroup>
+      <AssembliesDebug Include="$(TargetDir)*.dll;$(TargetDir)*.exe" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(AssembliesDebug)"
+      DestinationFolder="$(DebugOutput)"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <!-- Documentation XML -->
+    <ItemGroup>
+      <DocFiles Include="$(TargetDir)*.xml" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(DocFiles)"
+      DestinationFolder="$(DebugOutput)\Docs\"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <!-- Ressources -->
+    <ItemGroup>
+      <Ressources Include="$(SolutionDir)TXM.Interfaces\Ressources\**\*.*" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(Ressources)"
+      DestinationFolder="$(DebugOutput)\Ressources\%(RecursiveDir)"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <Message Text="✅ Dossier Debug prêt → $(DebugOutput)" Importance="High" />
+  </Target>
+
+  <!-- ============================================================
+       🚀 BUILD RELEASE : organisation du dossier TXM Release
+       ============================================================ -->
+  <Target Name="OrganizeOutput_Release" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="🚀 Organisation du build TXM (Release)..." Importance="High" />
+
+    <PropertyGroup>
+      <ReleaseOutput>E:\TXM Release\</ReleaseOutput>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(ReleaseOutput)" />
+
+    <ItemGroup>
+      <AssembliesRelease Include="$(TargetDir)*.dll;$(TargetDir)*.exe" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(AssembliesRelease)"
+      DestinationFolder="$(ReleaseOutput)"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <ItemGroup>
+      <DocFiles Include="$(TargetDir)*.xml" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(DocFiles)"
+      DestinationFolder="$(ReleaseOutput)\Docs\"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <ItemGroup>
+      <Ressources Include="$(SolutionDir)TXM.Interfaces\Ressources\**\*.*" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(Ressources)"
+      DestinationFolder="$(ReleaseOutput)\Ressources\%(RecursiveDir)"
+      SkipUnchangedFiles="true"
+      OverwriteReadOnlyFiles="true" />
+
+    <Message Text="✅ Dossier Release prêt → $(ReleaseOutput)" Importance="High" />
+  </Target>
+
+  <!-- ============================================================
+       📋 RÉSUMÉ FINAL DU BUILD
+       ============================================================ -->
+  <Target Name="AfterBuildSummary" AfterTargets="Build">
+    <Message Text="📦 Projet : $(MSBuildProjectName)" Importance="High" />
+    <Message Text="   Configuration : $(Configuration)" Importance="Normal" />
+    <Message Text="   Sortie         : $(TargetDir)" Importance="Normal" />
+    <Message Text="   Plateforme     : $(Platform)" Importance="Normal" />
+    <Message Text="   Framework      : $(TargetFramework)" Importance="Normal" />
+  </Target>
+
+</Project>

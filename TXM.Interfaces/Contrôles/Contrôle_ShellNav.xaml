@@ -1,0 +1,120 @@
+﻿<!--
+* * * * * * * * * * * * *
+*  Nom du logiciel         : TXM (Shell GUI)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.7.0.0
+*  Nom du fichier          : Contrôle_ShellNav.xaml
+*  Description             : Panneau de navigation principal (intégré au moteur de thème TXM v3)
+* * * * * * * * * * * * *
+-->
+<UserControl x:Class="TXM.Interfaces.Contrôles.Contrôle_ShellNav"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="12">
+
+            <!-- logo -->
+            <Image x:Name="Logo"
+                   Height="72"
+                   Stretch="Uniform"
+                   Margin="0,0,0,20"
+                   Source="{DynamicResource Branding.LogoUri}"/>
+
+            <!-- section TXM -->
+            <Button Content="Tableau de bord" Tag="accueil"
+                    Click="OnNavClick"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Margin="0,0,0,8"/>
+            <Button Content="Compétitions" Tag="compétitions"
+                    Click="OnNavClick"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Margin="0,0,0,8"/>
+            <Button Content="Joueurs" Tag="joueurs"
+                    Click="OnNavClick"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Margin="0,0,0,8"/>
+
+            <Separator Margin="0,8"
+                       Background="{DynamicResource App.CouleurSecondaire}"/>
+
+            <Button Content="Licence" Tag="licence"
+                    Click="OnNavClick"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Margin="0,0,0,8"/>
+            <Button Content="Paramètres" Tag="paramètres"
+                    Click="OnNavClick"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Margin="0,0,0,8"/>
+
+            <!-- section Maestro -->
+            <StackPanel x:Name="SectionMaestro" Margin="0,8,0,0">
+                <Separator Margin="0,8"
+                           Background="{DynamicResource App.CouleurSecondaire}"/>
+                <TextBlock Text="Pétanque Maestro"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"
+                           Margin="0,8,0,4"/>
+                <Button Content="Règlements" Tag="reglements" Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnHomologation" Content="Homologation" Tag="homologation"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnDocuments" Content="Documents officiels" Tag="documents"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnArbitrage" Content="Arbitrage" Tag="arbitrage"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button Content="Rapports" Tag="rapports" Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button Content="Poules" Tag="poules" Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- section TripleX -->
+            <StackPanel x:Name="SectionTripleX" Margin="0,8,0,0">
+                <Separator Margin="0,8"
+                           Background="{DynamicResource App.CouleurSecondaire}"/>
+                <TextBlock Text="TripleX"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"
+                           Margin="0,8,0,4"/>
+                <Button Content="Concours Amical" Tag="concours_amical" Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button Content="Concours Officiel" Tag="concours_officiel" Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- section Grands Tournois -->
+            <StackPanel x:Name="SectionGrandsTournois" Margin="0,8,0,0">
+                <Separator Margin="0,8"
+                           Background="{DynamicResource App.CouleurSecondaire}"/>
+                <TextBlock Text="Grands Tournois"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"
+                           Margin="0,8,0,4"/>
+                <Button x:Name="BtnTournois" Content="Tournois" Tag="tournois"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnSites" Content="Sites" Tag="sites"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnTerrains" Content="Terrains" Tag="terrains"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+                <Button x:Name="BtnFicheMatch" Content="Feuilles de Match" Tag="fichematch"
+                        Click="OnNavClick"
+                        Style="{StaticResource App.BoutonSecondaire}" Margin="0,0,0,8"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

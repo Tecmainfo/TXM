@@ -1,0 +1,25 @@
+<Solution>
+  <Project Path="TXM.Données/TXM.Données.csproj" Id="60e8b937-1fda-4b6a-ad87-fc330b89f220" />
+  <Project Path="TXM.GrandsTournois/TXM.GrandsTournois.csproj" Id="73de917f-1490-4b12-8c5a-a4faf267d069" />
+  <Project Path="TXM.Infrastructure/TXM.Infrastructure.csproj" Id="400e60e7-d958-4ab7-b99d-060bffa4cab0" />
+  <Project Path="TXM.Interfaces/TXM.Interfaces.csproj" />
+  <Project Path="TXM.Modèles/TXM.Modèles.csproj" Id="7eb4cf73-33d9-4c38-8660-593f7dafb5ef" />
+  <Project Path="TXM.Migrateur/TXM.Migrateur.csproj" Id="3103dc4b-6b5e-45db-9330-9a65a1444c6b" />
+  <Project Path="TXM.Maestro/TXM.Maestro.csproj" Id="0a7fcc44-ad42-47c9-9423-e2980b95e430">
+    <BuildDependency Project="TXM.Infrastructure/TXM.Infrastructure.csproj" />
+    <BuildDependency Project="TXM.Migrateur/TXM.Migrateur.csproj" />
+  </Project>
+  <Project Path="TXM.Services/TXM.Services.csproj" Id="58eb5269-77c5-4443-a6ba-f34b8d0355e1">
+    <BuildDependency Project="TXM.Migrateur/TXM.Migrateur.csproj" />
+  </Project>
+  <Project Path="TXM.TripleX/TXM.TripleX.csproj" Id="a3200416-e71e-4033-8232-2afed3981919">
+    <BuildDependency Project="TXM.Données/TXM.Données.csproj" />
+    <BuildDependency Project="TXM.Infrastructure/TXM.Infrastructure.csproj" />
+    <BuildDependency Project="TXM.Migrateur/TXM.Migrateur.csproj" />
+    <BuildDependency Project="TXM.Maestro/TXM.Maestro.csproj" />
+  </Project>
+  <Project Path="TXM.Vm/TXM.Vm.csproj" Id="ac3e8f0a-7de1-4b0b-a572-b8316d29a980">
+    <BuildDependency Project="TXM.Données/TXM.Données.csproj" />
+    <BuildDependency Project="TXM.Migrateur/TXM.Migrateur.csproj" />
+  </Project>
+</Solution>

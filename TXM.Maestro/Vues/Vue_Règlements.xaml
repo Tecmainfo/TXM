@@ -1,0 +1,177 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Règlements.xaml
+*  Description             : Gestion et affichage des règlements FFPJP – intégrée au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Règlements"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             AllowDrop="True"
+             PreviewDragOver="OnPreviewDragOver"
+             Drop="OnDropFiles"
+             MinHeight="600" MinWidth="1000"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- titre -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3"
+                   Text="Règlements FFPJP – Archive locale"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,8"/>
+
+        <!-- barre d’actions -->
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="3" Margin="0,8,0,8">
+
+            <TextBlock Text="Année" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <ComboBox x:Name="ComboAnnée"
+                      Width="100"
+                      Margin="0,0,12,0"
+                      Style="{StaticResource App.ComboBox}"/>
+
+            <TextBox x:Name="FiltreTexte"
+                     Width="220"
+                     Margin="0,0,12,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Filtrer (titre/catégorie)"/>
+            <Button Content="Rafraîchir"
+                    Width="120"
+                    Margin="0,0,12,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnRafraichir"/>
+
+            <Separator Margin="8,0" Width="1" Background="{DynamicResource App.CouleurSecondaire}"/>
+
+            <Button Content="Importer PDF (fichier)"
+                    Width="170"
+                    Margin="12,0,8,0"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnImporterFichier"/>
+            <TextBox x:Name="SaisieUrl"
+                     Width="260"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="URL PDF"/>
+            <TextBox x:Name="SaisieTitre"
+                     Width="200"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Titre (URL)"/>
+            <TextBox x:Name="SaisieCatégorie"
+                     Width="150"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Catégorie (URL)"/>
+            <Button Content="Importer depuis URL"
+                    Width="160"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnImporterUrl"/>
+
+            <Separator Margin="8,0" Width="1" Background="{DynamicResource App.CouleurSecondaire}"/>
+
+            <Button Content="Exporter liste (CSV)"
+                    Width="150"
+                    Margin="12,0,8,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterCsv"/>
+            <Button Content="Ouvrir dossier"
+                    Width="130"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnOuvrirDossier"/>
+
+            <StackPanel Orientation="Horizontal" Margin="12,0,0,0">
+                <Button Content="−" Width="36" Style="{StaticResource App.BoutonSecondaire}" Click="OnZoomMoins"/>
+                <TextBlock Text="Zoom" Margin="6,0,6,0" VerticalAlignment="Center"/>
+                <Button Content="+" Width="36" Style="{StaticResource App.BoutonSecondaire}" Click="OnZoomPlus"/>
+                <Button Content="Imprimer" Width="100" Margin="12,0,0,0"
+                        Style="{StaticResource App.BoutonSecondaire}" Click="OnImprimer"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- liste règlements -->
+        <DataGrid x:Name="GridReglements"
+                  Grid.Row="2" Grid.Column="0"
+                  ItemsSource="{Binding Règlements}"
+                  SelectedItem="{Binding RèglementSélectionné, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  CanUserAddRows="False"
+                  Style="{StaticResource App.DataGrid}"
+                  SelectionChanged="OnSelectionChanged"
+                  CellEditEnding="OnCellEditEnding">
+
+            <!-- menu contextuel -->
+            <DataGrid.Resources>
+                <ContextMenu x:Key="MenuLigne">
+                    <MenuItem Header="Ouvrir" Click="OnOuvrirDepuisMenu"/>
+                    <MenuItem Header="Révéler dans le dossier" Click="OnRevelerDepuisMenu"/>
+                    <Separator/>
+                    <MenuItem Header="Supprimer" Click="OnSupprimerDepuisMenu"/>
+                </ContextMenu>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu" Value="{StaticResource MenuLigne}"/>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Année" Binding="{Binding Année, Mode=TwoWay}" Width="70"/>
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding Catégorie, Mode=TwoWay}" Width="140"/>
+                <DataGridTextColumn Header="Titre" Binding="{Binding Titre, Mode=TwoWay}" Width="*"/>
+                <DataGridTextColumn Header="Version" Binding="{Binding Version, Mode=TwoWay}" Width="100"/>
+                <DataGridTextColumn Header="Publication" Binding="{Binding Date_Publication, Mode=TwoWay, StringFormat=d}" Width="120"/>
+                <DataGridTextColumn Header="Fichier local" Binding="{Binding Fichier_Local}" Width="240" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="Actions" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Ouvrir"
+                                        Margin="0,0,8,0"
+                                        Style="{StaticResource App.BoutonSecondaire}"
+                                        Tag="{Binding}"
+                                        Click="OnOuvrirClick"/>
+                                <Button Content="Supprimer"
+                                        Style="{StaticResource App.BoutonSecondaire}"
+                                        Foreground="{DynamicResource App.CouleurTexteInversé}"
+                                        Background="{DynamicResource App.CouleurPrimaire}"
+                                        Tag="{Binding}"
+                                        Click="OnSupprimerClick"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- séparateur -->
+        <Grid Grid.Row="2" Grid.Column="1"
+              Background="{DynamicResource App.CouleurSecondaire}"/>
+
+        <!-- aperçu PDF -->
+        <Border Grid.Row="2" Grid.Column="2"
+                BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                BorderThickness="1"
+                Background="{DynamicResource App.CouleurFond}">
+            <wv2:WebView2 x:Name="PdfViewer"/>
+        </Border>
+    </Grid>
+</UserControl>

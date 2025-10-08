@@ -1,0 +1,91 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Shell GUI)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Page_Accueil.xaml
+*  Description             : Page d’accueil TXM – affichage du tableau de bord et statistiques
+* * * * *
+-->
+<Page x:Class="TXM.Interfaces.Pages.Page_Accueil"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:TXM.Vm.Commun;assembly=TXM.Vm"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="{DynamicResource App.CouleurFond}"
+      Foreground="{DynamicResource App.CouleurTexte}"
+      MinHeight="400" MinWidth="700">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- titre et sous-titre -->
+        <StackPanel>
+            <TextBlock Text="Tableau de bord"
+                       Style="{StaticResource App.Titre}"/>
+            <TextBlock Text="Bienvenue dans TXM"
+                       Margin="0,0,0,16"
+                       Foreground="{DynamicResource App.CouleurTexte}"/>
+        </StackPanel>
+
+        <!-- statistiques -->
+        <UniformGrid Grid.Row="1"
+                     Rows="1"
+                     Columns="4"
+                     Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="{Binding NbConcours}"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"/>
+                <TextBlock Text="Concours en cours"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding NbJoueurs}"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"/>
+                <TextBlock Text="Joueurs inscrits"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding NbIncidents}"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"/>
+                <TextBlock Text="Incidents"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding NbSanctions}"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource App.CouleurPrimaire}"/>
+                <TextBlock Text="Sanctions"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <!-- matches du jour -->
+        <GroupBox Grid.Row="1"
+                  Header="Matches du jour"
+                  Margin="0,120,0,0"
+                  Foreground="{DynamicResource App.CouleurTexte}"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}">
+            <DataGrid ItemsSource="{Binding MatchesDuJour}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Style="{StaticResource App.DataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tour" Binding="{Binding Tour}" Width="60"/>
+                    <DataGridTextColumn Header="Équipe A" Binding="{Binding EquipeA}" Width="200"/>
+                    <DataGridTextColumn Header="Équipe B" Binding="{Binding EquipeB}" Width="200"/>
+                    <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Page>

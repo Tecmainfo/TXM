@@ -1,0 +1,153 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>Ressources\logos\logo_txm.ico</ApplicationIcon>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>TXM.Interfaces</AssemblyName>
+		<RootNamespace>TXM.Interfaces</RootNamespace>
+	</PropertyGroup>
+
+	<!-- Définition de l’application (point d’entrée) -->
+	<ItemGroup>
+		<!-- C’est ce qui génère Main() -->
+		<ApplicationDefinition Include="App.xaml" />
+
+		<!-- Fenêtres -->
+		<Page Include="MainWindow.xaml" />
+		<Compile Include="Animations\CornerRadiusAnimation.cs" />
+		<Compile Include="App.xaml.cs" />
+		<Compile Include="Convertisseurs\BoolToVisibilityConverter.cs" />
+		<Compile Include="MainWindow.xaml.cs" />
+		<Compile Include="Vues\Fenêtre_Splash.xaml.cs" />
+		<Compile Include="Vues\Vue_Licence.xaml.cs" />
+		<Compile Include="Vues\Vue_Paramètres.xaml.cs" />
+		<Compile Include="Vues\Vue_Tableau_de_bord.xaml.cs" />
+		<Compile Include="_Imports.cs" />
+		<Page Include="ressources\Convertisseurs.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+
+		<!-- Ressources -->
+		<Page Include="Ressources\Thèmes.xaml" />
+		<Page Include="Ressources\Styles.xaml" />
+
+		<!-- Contrôles -->
+		<Page Include="Contrôles\Contrôle_ShellNav.xaml" />
+		<Compile Include="Contrôles\Contrôle_ShellNav.xaml.cs" />
+
+		<!-- Pages principales -->
+		<Page Include="Pages\Page_Accueil.xaml" />
+		<Compile Include="Pages\Page_Accueil.xaml.cs" />
+		<Page Include="Pages\Page_Rapports.xaml" />
+		<Compile Include="Pages\Page_Rapports.xaml.cs" />
+		<Page Include="Pages\Page_Compétitions.xaml" />
+		<Compile Include="Pages\Page_Compétitions.xaml.cs" />
+		<Page Include="Pages\Page_Joueurs.xaml" />
+		<Compile Include="Pages\Page_Joueurs.xaml.cs" />
+		
+		<!-- Fenêtres WinForms intégrées -->
+		<Page Include="Fenêtres_WinForms\Fenêtre_Projection_WinForms.xaml" />
+		<Page Include="Ressources\Thèmes\App.Generic.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Ressources\Thèmes\Démo_Thème.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\GrandsTournois_Thème.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\GrandsTournois_Thème_Clair.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\GrandsTournois_Thème_Sombre.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\Maestro_Thème_Clair.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\Maestro_Thème_Sombre.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Ressources\Thèmes\Maestro_Thème.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Ressources\Thèmes\TripleX_Thème.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\TripleX_Thème_Clair.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="ressources\thèmes\TripleX_Thème_Sombre.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Vues\Fenêtre_Splash.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Vues\Vue_Licence.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Vues\Vue_Paramètres.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Include="Vues\Vue_Tableau_de_bord.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Compile Include="Fenêtres_WinForms\Fenêtre_Projection_WinForms.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Ressources\logos\logo-maestro.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Ressources\logos\logo-triplex.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Ressources\logos\logo-grands-tournois.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Content Include="Ressources\logos\logo_txm.ico">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Dragablz" Version="0.0.3.234" />
+	</ItemGroup>
+
+	<!-- Références aux projets de la solution -->
+	<ItemGroup>
+		<ProjectReference Include="..\TXM.Données\TXM.Données.csproj" />
+		<ProjectReference Include="..\TXM.GrandsTournois\TXM.GrandsTournois.csproj" />
+		<ProjectReference Include="..\TXM.Infrastructure\TXM.Infrastructure.csproj" />
+		<ProjectReference Include="..\TXM.Services\TXM.Services.csproj" />
+		<ProjectReference Include="..\TXM.TripleX\TXM.TripleX.csproj" />
+		<ProjectReference Include="..\TXM.Maestro\TXM.Maestro.csproj" />
+		<ProjectReference Include="..\TXM.Vm\TXM.Vm.csproj" />
+	</ItemGroup>
+
+	<!-- Ressources partagées -->
+	<ItemGroup>
+		<Resource Include="Ressources\logos\logo-txm.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Ressources\i18n\FR.xaml" />
+		<Resource Include="Ressources\i18n\EN.xaml" />
+		<Resource Include="Ressources\i18n\DE.xaml" />
+		<Resource Include="Ressources\i18n\ES.xaml" />
+		<Resource Include="Ressources\i18n\IT.xaml" />
+		<Resource Include="Ressources\i18n\CH.xaml" />
+	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<!-- évite les warnings sur les commentaires manquants -->
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+</Project>

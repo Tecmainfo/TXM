@@ -1,0 +1,87 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.2.0.0
+*  Nom du fichier          : Vue_Joueurs.xaml
+*  Description             : Gestion des joueurs – version complète FFPJP (TXM v3)
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Joueurs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}"
+             MinHeight="500" MinWidth="800">
+
+    <StackPanel Margin="16">
+
+        <!-- titre -->
+        <TextBlock Text="Gestion des Joueurs (FFPJP)"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- formulaire ajout -->
+        <WrapPanel Margin="0,8,0,16" Orientation="Horizontal" ItemHeight="40" ItemWidth="160">
+            <TextBox x:Name="SaisieNom" md:HintAssist.Hint="Nom" Width="160" Margin="0,0,8,8"/>
+            <TextBox x:Name="SaisieLicence" md:HintAssist.Hint="Licence" Width="140" Margin="0,0,8,8"/>
+            <TextBox x:Name="SaisieClub" md:HintAssist.Hint="Club" Width="180" Margin="0,0,8,8"/>
+            <TextBox x:Name="SaisieSexe" md:HintAssist.Hint="Sexe" Width="80" Margin="0,0,8,8"/>
+            <TextBox x:Name="SaisieCategorie" md:HintAssist.Hint="Catégorie" Width="120" Margin="0,0,8,8"/>
+            <TextBox x:Name="SaisieNationalite" md:HintAssist.Hint="Nationalité" Width="120" Margin="0,0,8,8"/>
+            <Button Content="Ajouter"
+                    Width="120"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnAjouterJoueur"/>
+        </WrapPanel>
+
+        <!-- liste des joueurs -->
+        <DataGrid ItemsSource="{Binding Joueurs}"
+                  SelectedItem="{Binding JoueurSélectionné, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="False"
+                  CanUserAddRows="False"
+                  Height="260"
+                  Margin="0,8,0,8"
+                  Style="{StaticResource App.DataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="180"/>
+                <DataGridTextColumn Header="Licence" Binding="{Binding Licence}" Width="120"/>
+                <DataGridTextColumn Header="Club" Binding="{Binding Club}" Width="140"/>
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding Catégorie}" Width="100"/>
+                <DataGridTextColumn Header="Sexe" Binding="{Binding Sexe}" Width="60"/>
+                <DataGridTextColumn Header="Nationalité" Binding="{Binding Nationalité}" Width="100"/>
+                <DataGridTextColumn Header="Points" Binding="{Binding Points_FFPJP}" Width="80"/>
+                <DataGridTextColumn Header="Statut" Binding="{Binding Statut}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- détails joueur sélectionné -->
+        <GroupBox Header="Détails du joueur sélectionné"
+                  BorderBrush="{DynamicResource App.CouleurSecondaire}"
+                  Margin="0,8,0,0">
+            <StackPanel Margin="8" Orientation="Vertical">
+                <UniformGrid Columns="2" Rows="4" Margin="0,0,0,8">
+                    <TextBox Text="{Binding JoueurSélectionné.Nom}" md:HintAssist.Hint="Nom" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Licence}" md:HintAssist.Hint="Licence" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Club}" md:HintAssist.Hint="Club" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Sexe}" md:HintAssist.Hint="Sexe" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Catégorie}" md:HintAssist.Hint="Catégorie" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Nationalité}" md:HintAssist.Hint="Nationalité" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Points_FFPJP}" md:HintAssist.Hint="Points" Margin="4"/>
+                    <TextBox Text="{Binding JoueurSélectionné.Statut}" md:HintAssist.Hint="Statut" Margin="4"/>
+                </UniformGrid>
+
+                <Button Content="Enregistrer les modifications"
+                        Width="240"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource App.BoutonPrimaire}"
+                        Click="OnEnregistrerModifs"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

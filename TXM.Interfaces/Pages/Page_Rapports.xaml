@@ -1,0 +1,72 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Shell GUI)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Page_Rapports.xaml
+*  Description             : Liste des rapports et exports — intégrée au moteur de thème TXM v3
+* * * * *
+-->
+<Page x:Class="TXM.Interfaces.Pages.Page_Rapports"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="{DynamicResource App.CouleurFond}"
+      Foreground="{DynamicResource App.CouleurTexte}"
+      MinHeight="400" MinWidth="700">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Rapports &amp; Exports"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,8"/>
+
+        <!-- barre outils filtre -->
+        <DockPanel Margin="0,8,0,8">
+            <TextBox x:Name="SearchBox"
+                     Width="220"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Rechercher (type, utilisateur)"
+                     TextChanged="OnFilterChanged"/>
+            <DatePicker x:Name="FiltreDate"
+                        Width="160"
+                        Margin="0,0,8,0"
+                        Style="{StaticResource App.DatePicker}"
+                        SelectedDateChanged="OnFilterChanged"/>
+            <Button Content="Réinitialiser"
+                    Width="140"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnResetFilterClick"/>
+        </DockPanel>
+
+        <!-- liste rapports -->
+        <DataGrid x:Name="GridRapports"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  Style="{StaticResource App.DataGrid}"
+                  Height="300"
+                  Margin="0,8,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding Date, StringFormat=d}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="Type"
+                                    Binding="{Binding Type}"
+                                    Width="160"/>
+                <DataGridTextColumn Header="Utilisateur"
+                                    Binding="{Binding Utilisateur}"
+                                    Width="200"/>
+                <DataGridTextColumn Header="Fichier"
+                                    Binding="{Binding NomFichier}"
+                                    Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </StackPanel>
+</Page>

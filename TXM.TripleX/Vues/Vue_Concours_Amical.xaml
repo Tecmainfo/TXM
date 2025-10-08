@@ -1,0 +1,65 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TripleX
+*  Projet Principal        : TXM.TripleX
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Concours_Amical.xaml
+*  Description             : Vue de gestion des concours amicaux (intégrée au système de thème TXM v3)
+* * * * *
+-->
+<UserControl x:Class="TXM.TripleX.Vues.Vue_Concours_Amical"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="300" MinWidth="500"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <StackPanel Margin="16" Orientation="Vertical">
+
+        <!-- titre -->
+        <TextBlock Text="Concours Amical"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- création concours -->
+        <DockPanel Margin="0,8,0,16" LastChildFill="False">
+            <TextBox x:Name="SaisieNomConcours"
+                     Width="220"
+                     Margin="0,0,8,0"
+                     Style="{StaticResource App.TextBox}"
+                     materialDesign:HintAssist.Hint="Nom du concours"/>
+            <DatePicker x:Name="SaisieDate"
+                        Width="180"
+                        Margin="0,0,8,0"
+                        SelectedDate="{Binding DateConcours, Mode=TwoWay}"
+                        Foreground="{DynamicResource App.CouleurTexte}"
+                        Background="{DynamicResource App.CouleurFond}"/>
+            <Button Content="Créer"
+                    Width="120"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Click="OnCréerConcours"/>
+        </DockPanel>
+
+        <!-- tableau concours -->
+        <DataGrid ItemsSource="{Binding Concours}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Style="{StaticResource App.DataGrid}"
+                  Margin="0,4,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding Date, StringFormat=d}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="Type"
+                                    Binding="{Binding Type}"
+                                    Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,243 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : Pétanque Maestro
+*  Projet Principal        : TXM.Maestro
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Vue_Arbitrage.xaml
+*  Description             : Module arbitrage (incidents & sanctions) — intégré au système de thème TXM v3
+* * * * *
+-->
+<UserControl x:Class="TXM.Maestro.Vues.Vue_Arbitrage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             MinHeight="400" MinWidth="900"
+             Background="{DynamicResource App.CouleurFond}"
+             Foreground="{DynamicResource App.CouleurTexte}">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- titre -->
+        <TextBlock Text="Arbitrage – Incidents &amp; Sanctions"
+                   Style="{StaticResource App.Titre}"
+                   Margin="0,0,0,12"/>
+
+        <!-- actions -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <Button Content="Exporter Incidents PDF"
+                    Margin="0,0,8,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterIncidents"/>
+            <Button Content="Exporter Incidents CSV"
+                    Margin="0,0,16,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterIncidentsCsv"/>
+            <Button Content="Exporter Sanctions PDF"
+                    Margin="0,0,8,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterSanctions"/>
+            <Button Content="Exporter Sanctions CSV"
+                    Margin="0,0,16,0"
+                    Style="{StaticResource App.BoutonSecondaire}"
+                    Click="OnExporterSanctionsCsv"/>
+
+            <TextBlock Text="Filtre date :"
+                       VerticalAlignment="Center"
+                       Margin="8,0,8,0"
+                       Foreground="{DynamicResource App.CouleurTexte}"/>
+            <DatePicker x:Name="FiltreDate"
+                        Width="160"
+                        SelectedDateChanged="OnFiltreDateChanged"
+                        Foreground="{DynamicResource App.CouleurTexte}"
+                        Background="{DynamicResource App.CouleurFond}"/>
+            <TextBox x:Name="FiltreTexte"
+                     Width="220"
+                     Margin="8,0,0,0"
+                     Style="{StaticResource App.TextBox}"
+                     md:HintAssist.Hint="Recherche (desc./motif/arbitre)"
+                     TextChanged="OnFiltreTexteChanged"/>
+        </StackPanel>
+
+        <!-- contenu -->
+        <TabControl Grid.Row="2"
+                    Style="{StaticResource App.TabControl}"
+                    Foreground="{DynamicResource App.CouleurTexte}"
+                    Background="{DynamicResource App.CouleurFond}">
+
+            <!-- incidents -->
+            <TabItem Header="Incidents">
+                <DockPanel Margin="4">
+                    <StackPanel DockPanel.Dock="Top"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8">
+
+                        <DatePicker x:Name="DateIncident"
+                                    Width="140"
+                                    Margin="0,0,8,0"/>
+                        <TextBox x:Name="DescriptionIncident"
+                                 Width="280"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Description"/>
+                        <ComboBox x:Name="GravitéIncident"
+                                  Width="140"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource App.ComboBox}"
+                                  md:HintAssist.Hint="Gravité">
+                            <ComboBoxItem Content="Mineure"/>
+                            <ComboBoxItem Content="Moyenne"/>
+                            <ComboBoxItem Content="Majeure"/>
+                        </ComboBox>
+                        <TextBox x:Name="ArbitreIncident"
+                                 Width="160"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Arbitre"/>
+                        <ComboBox x:Name="ComboÉquipeIncident"
+                                  Width="160"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource App.ComboBox}"
+                                  md:HintAssist.Hint="Équipe (optionnel)"
+                                  ItemsSource="{Binding Équipes}"
+                                  DisplayMemberPath="Nom"
+                                  SelectedValuePath="Id"/>
+                        <ComboBox x:Name="ComboJoueurIncident"
+                                  Width="160"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource App.ComboBox}"
+                                  md:HintAssist.Hint="Joueur (optionnel)"
+                                  ItemsSource="{Binding Joueurs}"
+                                  DisplayMemberPath="Nom"
+                                  SelectedValuePath="Id"/>
+                        <Button Content="Ajouter"
+                                Width="120"
+                                Style="{StaticResource App.BoutonPrimaire}"
+                                Click="OnAjouterIncident"/>
+                        <Button Content="Supprimer"
+                                Width="120"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource App.BoutonSecondaire}"
+                                Click="OnSupprimerIncident"/>
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding IncidentsFiltrés}"
+                              SelectedItem="{Binding IncidentSélectionné, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Style="{StaticResource App.DataGrid}">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Créer une sanction depuis cet incident"
+                                          Click="OnCreerSanctionDepuisIncident"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Date"
+                                                Binding="{Binding Date, StringFormat=g}"
+                                                Width="160"/>
+                            <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Description}" Width="*"/>
+                            <DataGridTextColumn Header="Gravité"
+                                                Binding="{Binding Gravité}" Width="120"/>
+                            <DataGridTextColumn Header="Arbitre"
+                                                Binding="{Binding Arbitre}" Width="160"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- sanctions -->
+            <TabItem Header="Sanctions">
+                <DockPanel Margin="4">
+                    <StackPanel DockPanel.Dock="Top"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8">
+
+                        <DatePicker x:Name="DateSanction"
+                                    Width="140"
+                                    Margin="0,0,8,0"/>
+                        <ComboBox x:Name="TypeSanction"
+                                  Width="160"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource App.ComboBox}"
+                                  md:HintAssist.Hint="Type">
+                            <ComboBoxItem Content="Avertissement"/>
+                            <ComboBoxItem Content="Pénalité"/>
+                            <ComboBoxItem Content="Exclusion temporaire"/>
+                            <ComboBoxItem Content="Disqualification"/>
+                        </ComboBox>
+                        <TextBox x:Name="MotifSanction"
+                                 Width="220"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Motif"/>
+                        <TextBox x:Name="ArticleSanction"
+                                 Width="140"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Article (règlement)"/>
+                        <TextBox x:Name="ArbitreSanction"
+                                 Width="160"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Arbitre"/>
+                        <TextBox x:Name="DuréeSanction"
+                                 Width="120"
+                                 Margin="0,0,8,0"
+                                 Style="{StaticResource App.TextBox}"
+                                 md:HintAssist.Hint="Durée (min)"/>
+                        <ComboBox x:Name="IncidentLié"
+                                  Width="220"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource App.ComboBox}"
+                                  md:HintAssist.Hint="Incident lié (optionnel)"
+                                  ItemsSource="{Binding Incidents}"
+                                  DisplayMemberPath="Description"
+                                  SelectedValuePath="Id"/>
+                        <Button Content="Ajouter"
+                                Width="120"
+                                Style="{StaticResource App.BoutonPrimaire}"
+                                Click="OnAjouterSanction"/>
+                        <Button Content="Supprimer"
+                                Width="120"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource App.BoutonSecondaire}"
+                                Click="OnSupprimerSanction"/>
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding SanctionsFiltrées}"
+                              SelectedItem="{Binding SanctionSélectionnée, Mode=TwoWay}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Style="{StaticResource App.DataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Date"
+                                                Binding="{Binding Date, StringFormat=g}"
+                                                Width="140"/>
+                            <DataGridTextColumn Header="Type"
+                                                Binding="{Binding Type}" Width="140"/>
+                            <DataGridTextColumn Header="Motif"
+                                                Binding="{Binding Motif}" Width="*"/>
+                            <DataGridTextColumn Header="Article"
+                                                Binding="{Binding Article_Règlement}" Width="120"/>
+                            <DataGridTextColumn Header="Arbitre"
+                                                Binding="{Binding Arbitre}" Width="140"/>
+                            <DataGridTextColumn Header="Durée (min)"
+                                                Binding="{Binding Durée_Minutes}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

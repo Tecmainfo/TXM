@@ -1,0 +1,63 @@
+﻿<!--
+* * * * *
+*  Nom du logiciel         : TXM (Shell GUI)
+*  Projet Principal        : TXM.Interfaces
+*  Auteur                  : Kano
+*  Licence                 : Licence Propriétaire
+*  Classification          : C3 - Développement
+*  Version                 : 25.10.1.0.0
+*  Nom du fichier          : Page_Compétitions.xaml
+*  Description             : Page de gestion des compétitions, intégrée au moteur de thème TXM v3
+* * * * *
+-->
+<Page x:Class="TXM.Interfaces.Pages.Page_Compétitions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{DynamicResource App.CouleurFond}"
+      Foreground="{DynamicResource App.CouleurTexte}"
+      MinHeight="400" MinWidth="700">
+
+    <DockPanel Margin="16">
+
+        <!-- barre de titre et actions -->
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,8">
+            <TextBlock Text="Gestion des compétitions"
+                       Style="{StaticResource App.Titre}"/>
+            <Button Content="Nouvelle compétition"
+                    Margin="20,0,0,0"
+                    Style="{StaticResource App.BoutonPrimaire}"
+                    Width="200"
+                    Height="32"
+                    Click="OnNouvelleCompétition"/>
+        </StackPanel>
+
+        <!-- tableau des compétitions -->
+        <DataGrid ItemsSource="{Binding Compétitions}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  Style="{StaticResource App.DataGrid}"
+                  Margin="0,8,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Id}"
+                                    Width="60"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nom"
+                                    Binding="{Binding Nom}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Lieu"
+                                    Binding="{Binding Lieu}"
+                                    Width="200"/>
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding Date, StringFormat=d}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="Statut"
+                                    Binding="{Binding Statut}"
+                                    Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</Page>

@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup />
+	<ItemGroup>
+		<Compile Include="Contrats\*.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Include="Compétition.cs" />
+	  <Compile Include="Dossier_Concours\Concours.cs" />
+	  <Compile Include="Dossier_Concours\Concours_Officiel.cs" />
+	  <Compile Include="Grands_Tournois\Site.cs" />
+	  <Compile Include="Grands_Tournois\Terrain.cs" />
+	  <Compile Include="HistoriqueHomologation.cs" />
+	  <Compile Include="Arbitrage\Incident.cs" />
+	  <Compile Include="Inscription.cs" />
+	  <Compile Include="Joueurs\Joueur.cs" />
+	  <Compile Include="Licences\Licence.cs" />
+	  <Compile Include="Dossier_Concours\Match.cs" />
+	  <Compile Include="Paramètres_Application.cs" />
+	  <Compile Include="Poule.cs" />
+	  <Compile Include="Rapport.cs" />
+	  <Compile Include="Règlement.cs" />
+	  <Compile Include="Arbitrage\Sanction.cs" />
+	  <Compile Include="Thèmes\Thème_Id.cs" />
+	  <Compile Include="Grands_Tournois\Tournoi.cs" />
+	  <Compile Include="Utilisateur.cs" />
+	  <Compile Include="_Imports.cs" />
+	  <Compile Include="Équipe.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Dragablz" Version="0.0.3.234" />
+	</ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+		<!-- évite les warnings sur les commentaires manquants -->
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+</Project>
